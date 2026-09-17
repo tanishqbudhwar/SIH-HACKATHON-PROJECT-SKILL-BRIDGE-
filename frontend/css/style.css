@@ -1,0 +1,298 @@
+.top-bar-login {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#login-box {
+    width: 650px;
+    padding: 25px 40px;
+    border-radius: 20px;
+    background: white;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+.data-login > button {
+    width: 280px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #e86b9b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.data-login input {
+    width: 280px;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+
+.welcome-message{
+    text-align: center;
+    
+}
+
+.login-as{
+    display:flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.login-as button{
+    width: 100px;
+    height: 40px;
+    font-size: 20px;
+    border:1px solid;
+    border-radius:20px;
+    color:white;
+    background-color: #EF88AD;
+}
+
+.login-as-title{
+    text-align: center;
+}
+
+.data-login{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.new-login{
+    text-align: center;
+}
+
+.gradient-background {
+  background: linear-gradient(300deg, #3A0519, #670D2F, #A53860);
+  background-size: 180% 180%;
+  animation: gradient-animation 18s ease infinite;
+  
+}
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.top-bar-login h2{
+    
+    color:white;
+    margin-bottom:100x;
+}
+
+body{
+    font-family: "Libre Baskerville", serif;
+    font-optical-sizing: auto;
+}
+
+.welcome-message{
+    margin-bottom: 40px;
+}
+
+.welcome-message h2{
+    margin-bottom: -5px;
+}
+
+.login-as button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 20px;
+    background: #e86b9b;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login-as button:hover {
+    transform: translateY(-5px);
+}
+
+.data-login {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.top-bar-login button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.password-box {
+    position: relative;
+    width: 280px;
+}
+
+.email-login,
+.password-login {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.email-login label,
+.password-login label {
+    width: 75px;
+    text-align: right;
+}
+
+.password-login label {
+    width: 75px;
+    text-align: right;
+}
+
+.password-box button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    border: none;
+    background: none;
+    padding: 5px;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.password-box button:hover {
+    opacity: 0.6;
+}
+
+.data-login > button {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.data-login > button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.new-login a {
+    color: #e65f91;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+
+.new-login a:hover {
+    color: #c93670;
+    text-decoration: underline;
+}
+
+/* Main text */
+body {
+    color: #374151;
+}
+
+/* Welcome heading */
+.welcome-message h2 {
+    color: #1F2937;
+}
+
+/* Subtitle */
+.welcome-message h3 {
+    color: #4B5563;
+}
+
+/* Login as */
+.login-as-title {
+    color: #374151;
+}
+
+/* Email and Password labels */
+.email-login label,
+.password-login label {
+    color: #374151;
+}
+
+/* Bottom text */
+.new-login p {
+    color: #6B7280;
+}
+
+/* Sign up link */
+.new-login a {
+    color: #E65F91;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+/* Sign up hover */
+.new-login a:hover {
+    color: #C93670;
+    transform: translateY(-2px);
+    text-decoration: underline;
+}
+
+.top-bar-login button {
+    padding: 9px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.12);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.top-bar-login button:hover {
+    background: white;
+    color: #333;
+    transform: translateX(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.top-bar-login button:active {
+    transform: translateX(0);
+}
+
+.login-as button {
+    background: #e65f91;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.login-as button:hover {
+    background-color: #c93670;
+    transform: translateY(-2px);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    min-height: 100vh;
+    box-sizing: border-box;
+}
