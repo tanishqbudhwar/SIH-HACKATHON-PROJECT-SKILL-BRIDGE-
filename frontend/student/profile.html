@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Profile - SkillBridge</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <div class="student-dashboard">
+
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+
+            <h2>SkillBridge</h2>
+
+            <nav>
+                <button
+                    type="button"
+                    onclick="window.location.href='dashboard.html'">
+                    Dashboard
+                </button>
+                <button type="button">Assessment</button>
+                <button type="button">Opportunities</button>
+                <button type="button">Learning</button>
+                <button type="button">Portfolio</button>
+                <button
+                  type="button"
+                  class="active"
+                  onclick="window.location.href='profile.html'">
+                  Profile
+                </button>
+                <button type="button">Settings</button>
+            </nav>
+
+        </aside>
+
+
+        <!-- Main Area -->
+        <main class="dashboard-main">
+
+            <header class="dashboard-topbar">
+
+                <div></div>
+
+                <div class="topbar-right">
+                    <span>🔔</span>
+                    <span id="profileUserName">Student</span>
+                </div>
+
+            </header>
+
+
+            <section class="dashboard-content">
+
+                <h1>My Profile</h1>
+
+                <p class="dashboard-subtitle">
+                    Complete your profile to improve your opportunity matching.
+                </p>
+
+
+                <div class="profile-card">
+
+                    <div class="profile-field">
+                        <label>College</label>
+                        <input
+                            type="text"
+                            id="college"
+                            placeholder="Enter your college">
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label>Course</label>
+                        <input
+                            type="text"
+                            id="course"
+                            placeholder="e.g. BTech CSE">
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label>Year</label>
+                        <input
+                            type="number"
+                            id="year"
+                            placeholder="e.g. 2">
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label>Skills</label>
+                        <input
+                            type="text"
+                            id="skills"
+                            placeholder="C++, Python, HTML, JavaScript">
+                    </div>
+
+
+                    <div class="profile-field">
+                        <label>Bio</label>
+                        <textarea
+                            id="bio"
+                            placeholder="Tell us about yourself"></textarea>
+                    </div>
+
+
+                    <button type="button" id="saveProfileButton">
+                        Save Profile
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="../js/profile.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up - SkillBridge</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+</head>
+
+<body class="gradient-background">
+
+    <div class="top-bar-login">
+        <h2>SkillBridge</h2>
+        <button type="button">← Back</button>
+    </div>
+
+
+    <div id="signup-box">
+
+        <div class="welcome-message">
+            <h2>Create Account</h2>
+            <h3>Join SkillBridge to get started</h3>
+        </div>
+
+
+        <h3 class="signup-as-title">Sign up as:</h3>
+
+        <div class="signup-as">
+            <button type="button" class="role-button" data-role="student">
+               Student
+            </button>
+
+            <button type="button" class="role-button" data-role="industry">
+             Industry
+            </button>
+
+            <button type="button" class="role-button" data-role="college">
+             College
+            </button>
+        </div>
+
+
+        <div class="signup-form">
+
+            <!-- Name -->
+            <div class="signup-field">
+                <label for="name">Name</label>
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name">
+            </div>
+
+
+            <!-- Email -->
+            <div class="signup-field">
+                <label for="email">Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email">
+            </div>
+
+
+            <!-- Password -->
+            <div class="signup-field">
+                <label for="password">Password</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Create a password">
+
+                    <button
+                        type="button"
+                        id="togglePassword">👁</button>
+                </div>
+            </div>
+
+
+            <!-- Confirm Password -->
+            <div class="signup-field">
+                <label for="confirmPassword">Confirm</label>
+
+                <div class="password-box">
+                    <input
+                        type="password"
+                        id="confirmPassword"
+                        placeholder="Confirm your password">
+
+                    <button
+                        type="button"
+                        id="toggleConfirmPassword">👁</button>
+                </div>
+            </div>
+
+
+            <!-- Signup button -->
+            <button
+                type="button"
+                id="signupButton">
+                Sign Up
+            </button>
+
+        </div>
+
+
+        <div class="new-login">
+            <p>
+                Already have an account?
+                <a href="login.html">Login</a>
+            </p>
+        </div>
+
+    </div>
+
+
+    <script src="js/signup.js"></script>
+
+</body>
+
+</html>

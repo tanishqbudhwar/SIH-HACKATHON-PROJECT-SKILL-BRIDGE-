@@ -1,3 +1,24 @@
+const roleButtons = document.querySelectorAll(".login-role-button");
+
+let selectedRole = "";
+
+roleButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+
+        roleButtons.forEach((btn) => {
+            btn.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        selectedRole = button.dataset.role;
+
+        console.log("Selected role:", selectedRole);
+    });
+
+});
+
 const loginButton = document.getElementById("loginButton");
 
 loginButton.addEventListener("click", async () => {
@@ -32,12 +53,12 @@ loginButton.addEventListener("click", async () => {
         if (response.ok) {
             alert("Login successful!");
 
-            // Save login token
             localStorage.setItem("token", data.token);
-
-            // Save user information
             localStorage.setItem("user", JSON.stringify(data.user));
 
+            if (data.user.role === "student") {
+                window.location.href = "student/dashboard.html";
+            }
         } else {
             alert(data.message);
         }
