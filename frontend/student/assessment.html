@@ -7,217 +7,129 @@
 
     <title>Skill Assessment - SkillBridge</title>
 
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
 
     <div class="student-dashboard">
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
 
         <!-- Sidebar -->
         <aside class="dashboard-sidebar">
-
-            <h2>SkillBridge</h2>
-
-            <nav>
-
-                <button
-                    type="button"
-                    onclick="window.location.href='dashboard.html'">
-                    Dashboard
+            <div class="sidebar-header">
+                <span class="material-icons-round logo-icon">spa</span>
+                <h2>SkillBridge</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button type="button" onclick="window.location.href='dashboard.html'">
+                    <span class="material-icons-round">grid_view</span> Dashboard
                 </button>
-
-                <button
-                    type="button"
-                    class="active"
-                    onclick="window.location.href='assessment.html'">
-                    Assessment
+                <button type="button" class="active" onclick="window.location.href='assessment.html'">
+                    <span class="material-icons-round">task_alt</span> Skill Assessment
                 </button>
-
                 <button type="button">
-                    Opportunities
+                    <span class="material-icons-round">account_tree</span> Skill Map
                 </button>
-
                 <button type="button">
-                    Learning
+                    <span class="material-icons-round">work</span> Opportunities
                 </button>
-
                 <button type="button">
-                    Portfolio
+                    <span class="material-icons-round">description</span> Applications
                 </button>
-
-                <button
-                    type="button"
-                    onclick="window.location.href='profile.html'">
-                    Profile
-                </button>
-
                 <button type="button">
-                    Settings
+                    <span class="material-icons-round">folder_special</span> Portfolio
                 </button>
-
+                <button type="button" onclick="window.location.href='profile.html'">
+                    <span class="material-icons-round">person</span> Profile
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">settings</span> Settings
+                </button>
+                <button type="button" id="logoutBtn">
+                    <span class="material-icons-round">logout</span> Log Out
+                </button>
             </nav>
-
         </aside>
-
 
         <!-- Main Area -->
         <main class="dashboard-main">
-
             <!-- Top Bar -->
             <header class="dashboard-topbar">
-
-                <div></div>
-
-                <div class="topbar-right">
-                    <span>🔔</span>
-                    <span>
-                        👤 <span id="topUserName">Student</span>
-                    </span>
+                <div class="topbar-left">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false">
+                        <span class="material-icons-round">menu</span>
+                    </button>
                 </div>
-
+                <div class="topbar-right">
+                    <span class="material-icons-round notification-icon">notifications_none</span>
+                    <div class="user-profile-menu">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Profile Picture" class="profile-pic" id="topProfilePic">
+                        <div class="user-info">
+                            <span class="user-name" id="topUserName">Sachin</span>
+                            <span class="user-role">Student</span>
+                        </div>
+                        <span class="material-icons-round dropdown-icon">expand_more</span>
+                    </div>
+                </div>
             </header>
-
 
             <!-- Assessment Content -->
             <section class="dashboard-content">
-
-                <h1>Skill Assessment</h1>
-
-                <p class="dashboard-subtitle">
-                    Test your current skills and discover your strengths and skill gaps.
-                </p>
-
-
-                <div class="assessment-page-card">
-
-                    <h2>Technical Skills Assessment</h2>
-
-                    <p>
-                        Answer the following questions based on your current knowledge.
+                <div class="welcome-section" style="text-align: center; margin-bottom: 48px; margin-top: 24px;">
+                    <h1 style="font-size: 32px; color: #1e293b; margin-bottom: 12px;">What skill do you want to assess?</h1>
+                    <p class="dashboard-subtitle" style="font-size: 16px; color: #64748b; max-width: 500px; margin: 0 auto;">
+                        Search from our comprehensive library of technical and professional skills to take an AI-powered assessment test.
                     </p>
-
-
-                    <!-- Question 1 -->
-
-                    <div class="question">
-
-                        <h3>
-                            1. How comfortable are you with C++?
-                        </h3>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="cpp"
-                                value="beginner">
-                            Beginner
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="cpp"
-                                value="intermediate">
-                            Intermediate
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="cpp"
-                                value="advanced">
-                            Advanced
-                        </label>
-
-                    </div>
-
-
-                    <!-- Question 2 -->
-
-                    <div class="question">
-
-                        <h3>
-                            2. How comfortable are you with Python?
-                        </h3>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="python"
-                                value="beginner">
-                            Beginner
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="python"
-                                value="intermediate">
-                            Intermediate
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="python"
-                                value="advanced">
-                            Advanced
-                        </label>
-
-                    </div>
-
-
-                    <!-- Question 3 -->
-
-                    <div class="question">
-
-                        <h3>
-                            3. How comfortable are you with JavaScript?
-                        </h3>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="javascript"
-                                value="beginner">
-                            Beginner
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="javascript"
-                                value="intermediate">
-                            Intermediate
-                        </label>
-
-                        <label>
-                            <input
-                                type="radio"
-                                name="javascript"
-                                value="advanced">
-                            Advanced
-                        </label>
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        id="submitAssessment">
-                        Submit Assessment
-                    </button>
-
                 </div>
 
+                <div class="assessment-search-container" style="max-width: 680px; margin: 0 auto 64px; flex-direction: column; gap: 20px;">
+                    <div class="search-box" style="width: 100%;">
+                        <span class="material-icons-round search-icon" style="font-size: 28px; left: 20px; color: #94a3b8;">search</span>
+                        <input type="text" id="skillSearchInput" placeholder="e.g. Python, React, Machine Learning..." autocomplete="off" style="padding: 20px 20px 20px 60px; font-size: 18px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+                        <ul id="skillSuggestions" class="suggestions-list" style="display: none; border-radius: 12px; margin-top: 12px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); border: 1px solid #e2e8f0; overflow: hidden;"></ul>
+                    </div>
+                    <button type="button" id="takeTestBtn" class="btn-primary" disabled style="width: 100%; padding: 18px; font-size: 18px; border-radius: 12px; margin-top: 8px; box-shadow: 0 4px 6px -1px rgba(196, 77, 122, 0.2);">Start Assessment</button>
+                </div>
+
+                <div class="popular-skills-section" style="max-width: 1000px; margin: 0 auto;">
+                    <h2 style="font-size: 22px; margin-bottom: 24px; color: #1e293b; font-weight: 700;">Popular Skills</h2>
+                    <div class="popular-skills-grid">
+                        <div class="skill-card" onclick="selectSkill('Python')">
+                            <img src="https://ui-avatars.com/api/?name=Python&background=3776ab&color=fff&rounded=true&size=64" alt="Python" class="skill-ai-img">
+                            <h3>Python</h3>
+                            <p>Data Science, Backend</p>
+                        </div>
+                        <div class="skill-card" onclick="selectSkill('DSA')">
+                            <img src="https://ui-avatars.com/api/?name=DSA&background=0f9d58&color=fff&rounded=true&size=64" alt="DSA" class="skill-ai-img">
+                            <h3>DSA</h3>
+                            <p>Problem Solving</p>
+                        </div>
+                        <div class="skill-card" onclick="selectSkill('React')">
+                            <img src="https://ui-avatars.com/api/?name=React&background=61dafb&color=fff&rounded=true&size=64" alt="React" class="skill-ai-img">
+                            <h3>React</h3>
+                            <p>Frontend Development</p>
+                        </div>
+                        <div class="skill-card" onclick="selectSkill('Node.js')">
+                            <img src="https://ui-avatars.com/api/?name=Node.js&background=68a063&color=fff&rounded=true&size=64" alt="Node.js" class="skill-ai-img">
+                            <h3>Node.js</h3>
+                            <p>Backend Development</p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
         </main>
 
     </div>
 
-
+    <script src="../js/skillData.js"></script>
     <script src="../js/assessment.js"></script>
 
 </body>

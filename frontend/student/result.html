@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Result | SkillBridge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'sb-maroon': '#8a1f42',
+                        'sb-maroon-dark': '#61122a',
+                        'sb-maroon-light': '#9e274f',
+                        'sb-pink': '#e75a85',
+                        'sb-pink-hover': '#d44973',
+                        'sb-text-dark': '#334155',
+                        'sb-text-muted': '#64748b'
+                    },
+                    fontFamily: {
+                        'serif': ['Lora', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom background gradient mirroring the reference image */
+        body {
+            background: linear-gradient(135deg, #61122a 0%, #8a1f42 40%, #9e274f 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Smooth fade-in animation for elements */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SVG Circle progress transition */
+        #progressCircle {
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-sb-text-dark selection:bg-sb-pink selection:text-white">
+
+    <!-- Top Header -->
+    <header class="w-full px-8 py-6 flex justify-between items-center absolute top-0 left-0 right-0 z-10">
+        <div class="text-white text-2xl font-serif font-bold tracking-wide">
+            SkillBridge
+        </div>
+        <button onclick="window.location.href='dashboard.html'" class="border border-white/40 text-white hover:bg-white/10 hover:border-white transition-all px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-1 backdrop-blur-sm">
+            <span>&larr;</span> back
+        </button>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow flex items-center justify-center p-4 pt-24 pb-12">
+        <div class="bg-white rounded-[1.25rem] shadow-2xl w-full max-w-3xl overflow-hidden fade-in relative">
+            
+            <!-- Header Section -->
+            <div class="text-center pt-10 pb-6 px-8 border-b border-gray-100">
+                <h1 class="text-3xl font-serif font-bold text-gray-900 mb-2">Assessment Result</h1>
+                <p id="skillName" class="text-sb-text-muted text-base">Here is your Skill Assessment performance</p>
+            </div>
+
+            <div class="p-8 md:p-10">
+                <!-- Score Section -->
+                <div class="flex flex-col md:flex-row items-center justify-center gap-10 mb-12 fade-in delay-100 bg-gray-50/50 p-6 rounded-2xl border border-gray-100">
+                    
+                    <!-- Circular Progress -->
+                    <div class="relative w-40 h-40 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                            <!-- Background Circle -->
+                            <circle cx="60" cy="60" r="54" fill="none" stroke="#f1f5f9" stroke-width="8"></circle>
+                            <!-- Progress Circle -->
+                            <circle id="progressCircle" cx="60" cy="60" r="54" fill="none" stroke="#e75a85" stroke-width="8" 
+                                    stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29"></circle>
+                        </svg>
+                        <!-- Inside Circle Text -->
+                        <div class="absolute flex flex-col items-center justify-center text-center">
+                            <span id="scorePercentage" class="text-3xl font-bold text-gray-800">--%</span>
+                            <span id="scoreValue" class="text-sm font-medium text-gray-500 mt-1">- / -</span>
+                        </div>
+                    </div>
+
+                    <!-- Score Details -->
+                    <div class="text-center md:text-left">
+                        <h2 class="text-lg font-medium text-gray-600 mb-1">Your Score</h2>
+                        <p id="scoreStatus" class="text-2xl font-serif font-semibold text-[#8a1f42] mb-3">Loading...</p>
+                        <p class="text-sm text-gray-500 max-w-xs">
+                            Your assessment has been evaluated. Review your strengths and areas for growth below.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Strengths & Weaknesses Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-10 fade-in delay-200">
+                    
+                    <!-- Plus Points -->
+                    <div class="bg-green-50/30 rounded-xl p-6 border border-green-100">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-serif font-semibold text-gray-800">Plus Points</h3>
+                            <p class="text-xs text-gray-500">Areas where you performed well</p>
+                        </div>
+                        <div id="plusPoints" class="space-y-3">
+                            <!-- Dynamically populated -->
+                            <div class="animate-pulse flex space-x-2"><div class="h-4 w-4 bg-green-200 rounded"></div><div class="h-4 w-3/4 bg-gray-200 rounded"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Minor Points / Skill Gaps -->
+                    <div class="bg-amber-50/30 rounded-xl p-6 border border-amber-100">
+                        <div class="mb-4">
+                            <h3 class="text-lg font-serif font-semibold text-gray-800">Minor Points</h3>
+                            <p class="text-xs text-gray-500">Areas that need improvement</p>
+                        </div>
+                        <div id="minorPoints" class="space-y-3 text-gray-600">
+                            <!-- Dynamically populated -->
+                            <div class="animate-pulse flex space-x-2"><div class="h-4 w-4 bg-amber-200 rounded"></div><div class="h-4 w-3/4 bg-gray-200 rounded"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommended Next Steps -->
+                <div class="mb-10 fade-in delay-300">
+                    <h3 class="text-lg font-serif font-semibold text-gray-800 mb-1">Recommended Next Steps</h3>
+                    <p class="text-sm text-gray-500 mb-4">Targeted actions to boost your proficiency</p>
+                    <div id="recommendations" class="bg-blue-50/40 rounded-xl p-5 border border-blue-100 space-y-3">
+                        <!-- Dynamically populated -->
+                        <div class="animate-pulse h-4 w-full bg-gray-200 rounded mb-2"></div>
+                        <div class="animate-pulse h-4 w-5/6 bg-gray-200 rounded"></div>
+                    </div>
+                </div>
+
+                <!-- Bottom Action Buttons -->
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 fade-in delay-300">
+                    <button class="w-full sm:w-auto px-8 py-3 bg-sb-pink hover:bg-sb-pink-hover text-white rounded-xl font-medium transition-colors shadow-sm shadow-sb-pink/30 flex-1 sm:flex-none text-center">
+                        View Skill Map
+                    </button>
+                    <button onclick="window.location.href='dashboard.html'" class="w-full sm:w-auto px-8 py-3 border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors flex-1 sm:flex-none text-center">
+                        Back to Dashboard
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                window.location.href = "../login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch("http://localhost:4000/api/assessment/latest", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (!data.success) {
+                    alert("Could not load your assessment results.");
+                    window.location.href = "dashboard.html";
+                    return;
+                }
+
+                const resultData = data.result;
+
+                // 2. Calculate values
+                const scorePercent = resultData.score;
+
+                // Update text elements
+                if (resultData.skill) {
+                    document.getElementById('skillName').textContent = `Performance in ${resultData.skill}`;
+                }
+                
+                document.getElementById('scoreValue').textContent = `${resultData.correctAnswers} / ${resultData.totalQuestions}`;
+                document.getElementById('scorePercentage').textContent = `${scorePercent}%`;
+                document.getElementById('scoreStatus').textContent = resultData.status;
+
+                // 4. Animate Circular Progress (SVG)
+                // Circumference of r=54 circle is 2 * Math.PI * 54 ≈ 339.29
+                const circle = document.getElementById('progressCircle');
+                const circumference = 339.29;
+                const dashoffset = circumference - (scorePercent / 100) * circumference;
+                
+                // Small timeout to ensure transition plays smoothly after initial render
+                setTimeout(() => {
+                    circle.style.strokeDashoffset = dashoffset;
+                }, 100);
+
+                // 5. Populate Plus Points
+                const plusPointsContainer = document.getElementById('plusPoints');
+                plusPointsContainer.innerHTML = '';
+                
+                if (resultData.plusPoints && resultData.plusPoints.length > 0) {
+                    resultData.plusPoints.forEach(point => {
+                        const item = document.createElement('div');
+                        item.className = 'flex items-start gap-3 text-gray-700 text-sm font-medium';
+                        item.innerHTML = `
+                            <span class="text-green-500 bg-green-100 rounded-full p-0.5 flex-shrink-0 mt-0.5">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </span>
+                            <span>${point}</span>
+                        `;
+                        plusPointsContainer.appendChild(item);
+                    });
+                } else {
+                    plusPointsContainer.innerHTML = '<span class="text-sm text-gray-500 italic">No major plus points identified yet. Keep practicing!</span>';
+                }
+
+                // 6. Populate Minor Points
+                const minorPointsContainer = document.getElementById('minorPoints');
+                minorPointsContainer.innerHTML = '';
+                
+                if (resultData.minorPoints && resultData.minorPoints.length > 0) {
+                    resultData.minorPoints.forEach(point => {
+                        const item = document.createElement('div');
+                        item.className = 'flex items-start gap-3 text-gray-600 text-sm';
+                        item.innerHTML = `
+                            <span class="text-amber-500 flex-shrink-0 mt-0.5 font-bold text-lg leading-none">&bull;</span>
+                            <span class="mt-0.5">${point}</span>
+                        `;
+                        minorPointsContainer.appendChild(item);
+                    });
+                } else {
+                    minorPointsContainer.innerHTML = '<span class="text-sm text-gray-500 italic">Great job! No major skill gaps detected.</span>';
+                }
+
+                // 7. Populate Recommendations
+                const recommendationsContainer = document.getElementById('recommendations');
+                recommendationsContainer.innerHTML = '';
+                
+                if (resultData.recommendations && resultData.recommendations.length > 0) {
+                    resultData.recommendations.forEach(rec => {
+                        const item = document.createElement('div');
+                        item.className = 'flex items-start gap-3 text-gray-700 text-sm';
+                        item.innerHTML = `
+                            <span class="text-blue-500 flex-shrink-0 mt-0.5">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                            </span>
+                            <span class="mt-0.5">${rec}</span>
+                        `;
+                        recommendationsContainer.appendChild(item);
+                    });
+                } else {
+                    recommendationsContainer.innerHTML = '<span class="text-sm text-gray-500 italic">Continue practicing and building real-world projects to maintain your skills.</span>';
+                }
+
+            } catch (error) {
+                console.error("Error fetching results:", error);
+                alert("Failed to connect to the server.");
+            }
+        });
+    </script>
+</body>
+</html>

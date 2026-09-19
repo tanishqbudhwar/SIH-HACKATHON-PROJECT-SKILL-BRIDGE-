@@ -33,7 +33,41 @@ const studentProfileSchema = new mongoose.Schema(
         bio: {
             type: String,
             trim: true
-        }
+        },
+
+        skillScore: {
+            type: Number,
+            default: 0
+        },
+
+        internshipsApplied: {
+            type: Number,
+            default: 0
+        },
+
+        placementReadiness: {
+            type: Number,
+            default: 0
+        },
+
+        certificates: {
+            type: Number,
+            default: 0
+        },
+
+        skillGapAnalysis: [
+            {
+                skill: String,
+                studentLevel: Number,
+                industryRequirement: Number
+            }
+        ],
+
+        skillsToImprove: [
+            {
+                type: String
+            }
+        ]
     },
     {
         timestamps: true

@@ -12,7 +12,7 @@ const startServer = async () => {
     await connectDB();
 
     app.listen(PORT, () => {
-        console.log(`Sanjog server running on port ${PORT}`);
+        console.log(`SkillBridge server running on port ${PORT}`);
     });
 };
 

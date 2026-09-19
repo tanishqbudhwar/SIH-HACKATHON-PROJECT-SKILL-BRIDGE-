@@ -1,155 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Dashboard - SkillBridge</title>
-
+    <!-- Google Fonts for typography similar to design -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body>
-
     <div class="student-dashboard">
-
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="dashboard-sidebar">
-
-            <h2>SkillBridge</h2>
-
-            <nav>
-                <button
-                    type="button"
-                    class="active"
-                    onclick="window.location.href='dashboard.html'">
-                    Dashboard
+            <div class="sidebar-header">
+                <span class="material-icons-round logo-icon">spa</span>
+                <h2>SkillBridge</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button type="button" class="active" onclick="window.location.href='dashboard.html'">
+                    <span class="material-icons-round">grid_view</span> Dashboard
                 </button>
-                <button>Assessment</button>
-                <button>Opportunities</button>
-                <button>Learning</button>
-                <button>Portfolio</button>
-                <button
-                    type="button"
-                    onclick="window.location.href='profile.html'">
-                    Profile
+                <button type="button" onclick="window.location.href='assessment.html'">
+                    <span class="material-icons-round">task_alt</span> Skill Assessment
                 </button>
-                <button>Settings</button>
+                <button type="button">
+                    <span class="material-icons-round">account_tree</span> Skill Map
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">work</span> Opportunities
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">description</span> Applications
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">folder_special</span> Portfolio
+                </button>
+                <button type="button" onclick="window.location.href='profile.html'">
+                    <span class="material-icons-round">person</span> Profile
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">settings</span> Settings
+                </button>
+                <button type="button" id="logoutBtn">
+                    <span class="material-icons-round">logout</span> Log Out
+                </button>
             </nav>
-
         </aside>
-
 
         <!-- Main Area -->
         <main class="dashboard-main">
-
             <!-- Top Bar -->
             <header class="dashboard-topbar">
-
-                <div></div>
-
-                <div class="topbar-right">
-                    <span>🔔</span>
-                    <span>👤 <span id="topUserName">Student</span></span>
+                <div class="topbar-left">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false">
+                        <span class="material-icons-round">menu</span>
+                    </button>
                 </div>
-
+                <div class="topbar-right">
+                    <span class="material-icons-round notification-icon">notifications_none</span>
+                    <div class="user-profile-menu">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Profile Picture" class="profile-pic" id="topProfilePic">
+                        <div class="user-info">
+                            <span class="user-name" id="topUserName">Sachin</span>
+                            <span class="user-role">Student</span>
+                        </div>
+                        <span class="material-icons-round dropdown-icon">expand_more</span>
+                    </div>
+                </div>
             </header>
-
 
             <!-- Dashboard Content -->
             <section class="dashboard-content">
-
-                <h1 id="welcomeMessage">Good morning 👋</h1>
-
-                <p class="dashboard-subtitle">
-                    Complete your profile to improve matching.
-                </p>
-
-
-                <!-- Stats -->
-                <div class="dashboard-stats">
-
-                    <div class="stat-card">
-                        <h3>Skills</h3>
-                        <strong>72%</strong>
-                    </div>
-
-                    <div class="stat-card">
-                        <h3>Applied</h3>
-                        <strong>3</strong>
-                    </div>
-
-                    <div class="stat-card">
-                        <h3>Courses</h3>
-                        <strong>2</strong>
-                    </div>
-
+                <div class="welcome-section">
+                    <h1 id="welcomeMessage">Welcome Back! 👋</h1>
+                    <p class="dashboard-subtitle" id="welcomeSubtitle">B.Tech CSE • 3rd Year</p>
                 </div>
 
-
-                <!-- Assessment -->
-                <h2>Skill Assessment</h2>
-
-                <div class="assessment-card">
-
-                    <div>
-                        <h3>Take your assessment</h3>
-
-                        <p>
-                            Find your strengths & skill gaps
-                        </p>
+                <!-- Stats Cards -->
+                <div class="dashboard-stats-grid">
+                    <div class="stat-card">
+                        <h3>Skill Score</h3>
+                        <strong id="skillScoreVal">0%</strong>
                     </div>
-
-                    <button
-                         type="button"
-                         onclick="window.location.href='assessment.html'">
-                         Start →
-                    </button>
-
+                    <div class="stat-card">
+                        <h3>Internships Applied</h3>
+                        <strong id="internshipsAppliedVal">0</strong>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Placement Readiness</h3>
+                        <strong id="placementReadinessVal">0%</strong>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <h3>Certificates</h3>
+                            <span class="material-icons-round stat-icon">bar_chart</span>
+                        </div>
+                        <strong id="certificatesVal">0</strong>
+                    </div>
                 </div>
 
-
-                <!-- Opportunities -->
-                <h2>Recommended Opportunities</h2>
-
-                <div class="opportunity-container">
-
-                    <div class="opportunity-card">
-
-                        <h3>Python Intern</h3>
-
-                        <strong>82% Match</strong>
-
-                        <br><br>
-
-                        <button>View</button>
-
+                <!-- Middle Section -->
+                <div class="dashboard-middle-grid">
+                    <!-- Skill Gap Analysis -->
+                    <div class="card skill-gap-card">
+                        <div class="card-header">
+                            <h2>Skill Gap Analysis</h2>
+                            <div class="legend">
+                                <span class="legend-item"><span class="dot your-level"></span> Your Level</span>
+                                <span class="legend-item"><span class="dot industry-req"></span> Industry Requirement</span>
+                            </div>
+                        </div>
+                        <div class="skill-bars" id="skillGapContainer">
+                            <!-- Skill bars will be injected here via JS -->
+                        </div>
                     </div>
 
-
-                    <div class="opportunity-card">
-
-                        <h3>Data Analyst</h3>
-
-                        <strong>76% Match</strong>
-
-                        <br><br>
-
-                        <button>View</button>
-
+                    <!-- Skills to Improve -->
+                    <div class="card skills-improve-card">
+                        <h2>Skills to Improve</h2>
+                        <ul class="skills-list" id="skillsToImproveList">
+                            <!-- Skills to improve will be injected here via JS -->
+                        </ul>
+                        <button class="primary-btn full-width">Get Learning Resources &rarr;</button>
                     </div>
-
                 </div>
 
+                <!-- Bottom Section -->
+                <div class="dashboard-bottom-grid">
+                    <!-- Recommended Opportunities -->
+                    <div class="card opportunities-card">
+                        <div class="card-header">
+                            <h2>Recommended Opportunities</h2>
+                            <a href="#" class="view-all">View All</a>
+                        </div>
+                        <div class="job-card">
+                            <div class="job-icon">
+                                <span class="material-icons-round">work</span>
+                            </div>
+                            <div class="job-details">
+                                <div class="job-title-row">
+                                    <h4>Software Developer Intern</h4>
+                                    <span class="match-badge">91% Match</span>
+                                </div>
+                                <p class="company-name">ABC Technologies</p>
+                                <div class="job-tags">
+                                    <span class="tag">Remote</span>
+                                    <span class="tag">₹15,000/month</span>
+                                    <span class="tag">6 Months</span>
+                                </div>
+                                <div class="job-actions">
+                                    <button class="primary-btn">Apply Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Learning Programs -->
+                    <div class="card learning-programs-card">
+                        <div class="card-header">
+                            <h2>Upcoming Learning Programs</h2>
+                        </div>
+                        <div class="program-card">
+                            <div class="program-icon">
+                                <span class="material-icons-round">book</span>
+                            </div>
+                            <div class="program-details">
+                                <h4>Web Development Bootcamp</h4>
+                                <p class="provider">By Coursera</p>
+                                <p class="program-meta">4 Weeks • Free</p>
+                                <div class="program-actions">
+                                    <button class="primary-btn">Enroll Now</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
-
         </main>
-
     </div>
 
     <script src="../js/dashboard.js"></script>
-
 </body>
-
 </html>

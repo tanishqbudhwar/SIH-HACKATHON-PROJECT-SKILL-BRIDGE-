@@ -2,7 +2,19 @@ import StudentProfile from "../models/StudentProfile.js";
 
 const createProfile = async (req, res) => {
     try {
-        const { college, course, year, skills, bio } = req.body;
+        const { 
+            college, 
+            course, 
+            year, 
+            skills, 
+            bio,
+            skillScore,
+            internshipsApplied,
+            placementReadiness,
+            certificates,
+            skillGapAnalysis,
+            skillsToImprove
+        } = req.body;
 
         const existingProfile = await StudentProfile.findOne({
             user: req.user.userId
@@ -20,7 +32,20 @@ const createProfile = async (req, res) => {
             course,
             year,
             skills,
-            bio
+            bio,
+            skillScore: skillScore || 78,
+            internshipsApplied: internshipsApplied || 12,
+            placementReadiness: placementReadiness || 84,
+            certificates: certificates || 5,
+            skillGapAnalysis: skillGapAnalysis || [
+                { skill: "Python", studentLevel: 90, industryRequirement: 90 },
+                { skill: "Java", studentLevel: 60, industryRequirement: 60 },
+                { skill: "SQL", studentLevel: 60, industryRequirement: 60 },
+                { skill: "React", studentLevel: 30, industryRequirement: 30 },
+                { skill: "DSA", studentLevel: 80, industryRequirement: 80 },
+                { skill: "Git", studentLevel: 80, industryRequirement: 80 }
+            ],
+            skillsToImprove: skillsToImprove || ["React", "DSA", "Java"]
         });
 
         res.status(201).json({
