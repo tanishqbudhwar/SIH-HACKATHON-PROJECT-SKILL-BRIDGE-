@@ -9,6 +9,10 @@ const studentProfileSchema = new mongoose.Schema(
 
         },
 
+        profilePic: {
+            type: String // Will store Base64 encoded image
+        },
+
         college: {
             type: String,
             trim: true

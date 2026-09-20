@@ -3,6 +3,7 @@ import StudentProfile from "../models/StudentProfile.js";
 const createProfile = async (req, res) => {
     try {
         const { 
+            profilePic,
             college, 
             course, 
             year, 
@@ -16,40 +17,37 @@ const createProfile = async (req, res) => {
             skillsToImprove
         } = req.body;
 
-        const existingProfile = await StudentProfile.findOne({
-            user: req.user.userId
-        });
+        const profile = await StudentProfile.findOneAndUpdate(
+            { user: req.user.userId },
+            {
+                $set: {
+                    user: req.user.userId,
+                    profilePic,
+                    college,
+                    course,
+                    year,
+                    skills,
+                    bio,
+                    skillScore: skillScore || 78,
+                    internshipsApplied: internshipsApplied || 12,
+                    placementReadiness: placementReadiness || 84,
+                    certificates: certificates || 5,
+                    skillGapAnalysis: skillGapAnalysis || [
+                        { skill: "Python", studentLevel: 90, industryRequirement: 90 },
+                        { skill: "Java", studentLevel: 60, industryRequirement: 60 },
+                        { skill: "SQL", studentLevel: 60, industryRequirement: 60 },
+                        { skill: "React", studentLevel: 30, industryRequirement: 30 },
+                        { skill: "DSA", studentLevel: 80, industryRequirement: 80 },
+                        { skill: "Git", studentLevel: 80, industryRequirement: 80 }
+                    ],
+                    skillsToImprove: skillsToImprove || ["React", "DSA", "Java"]
+                }
+            },
+            { new: true, upsert: true }
+        );
 
-        if (existingProfile) {
-            return res.status(400).json({
-                message: "Profile already exists"
-            });
-        }
-
-        const profile = await StudentProfile.create({
-            user: req.user.userId,
-            college,
-            course,
-            year,
-            skills,
-            bio,
-            skillScore: skillScore || 78,
-            internshipsApplied: internshipsApplied || 12,
-            placementReadiness: placementReadiness || 84,
-            certificates: certificates || 5,
-            skillGapAnalysis: skillGapAnalysis || [
-                { skill: "Python", studentLevel: 90, industryRequirement: 90 },
-                { skill: "Java", studentLevel: 60, industryRequirement: 60 },
-                { skill: "SQL", studentLevel: 60, industryRequirement: 60 },
-                { skill: "React", studentLevel: 30, industryRequirement: 30 },
-                { skill: "DSA", studentLevel: 80, industryRequirement: 80 },
-                { skill: "Git", studentLevel: 80, industryRequirement: 80 }
-            ],
-            skillsToImprove: skillsToImprove || ["React", "DSA", "Java"]
-        });
-
-        res.status(201).json({
-            message: "Student profile created successfully",
+        res.status(200).json({
+            message: "Student profile saved successfully",
             profile
         });
 
@@ -87,7 +85,25 @@ const getProfile = async (req, res) => {
     }
 };
 
+const getAllStudents = async (req, res) => {
+    try {
+        const students = await StudentProfile.find()
+            .populate("user", "name email")
+            .select("college course year skills bio skillScore placementReadiness certificates profilePic");
+            
+        res.status(200).json({
+            students
+        });
+    } catch (error) {
+        console.error("Error fetching all students:", error);
+        res.status(500).json({
+            message: "Server error while fetching students"
+        });
+    }
+};
+
 export {
     createProfile,
-    getProfile
+    getProfile,
+    getAllStudents
 };
