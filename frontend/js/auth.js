@@ -19,6 +19,24 @@ roleButtons.forEach((button) => {
 
 });
 
+// =========================
+// PASSWORD EYE BUTTON
+// =========================
+const togglePassword = document.getElementById("togglePassword");
+const password = document.getElementById("password");
+
+if (togglePassword && password) {
+    togglePassword.addEventListener("click", () => {
+        if (password.type === "password") {
+            password.type = "text";
+            togglePassword.textContent = "🙈";
+        } else {
+            password.type = "password";
+            togglePassword.textContent = "👁";
+        }
+    });
+}
+
 const loginButton = document.getElementById("loginButton");
 
 loginButton.addEventListener("click", async () => {
@@ -33,7 +51,7 @@ loginButton.addEventListener("click", async () => {
 
     try {
 
-        const response = await fetch("http://localhost:4000/api/auth/login", {
+        const response = await fetch("${API_BASE_URL}/api/auth/login", {
             method: "POST",
 
             headers: {
@@ -58,6 +76,12 @@ loginButton.addEventListener("click", async () => {
 
             if (data.user.role === "student") {
                 window.location.href = "student/dashboard.html";
+            } else if (data.user.role === "industry") {
+                window.location.href = "industry/dashboard.html";
+            } else if (data.user.role === "college") {
+                window.location.href = "college/dashboard.html";
+            } else {
+                window.location.href = "index.html"; // Fallback
             }
         } else {
             alert(data.message);

@@ -620,6 +620,62 @@ body {
     border-bottom: 1px solid #f1f5f9;
 }
 
+/* Skill Gap Analysis */
+.skill-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.skill-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.skill-name {
+    width: 120px;
+    font-size: 14px;
+    color: #475569;
+    font-weight: 500;
+}
+
+.progress-track {
+    flex-grow: 1;
+    height: 12px;
+    background-color: #f1f5f9;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-industry {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: rgba(148, 163, 184, 0.3); /* Subtle grey for industry req */
+    border-radius: 6px;
+}
+
+.progress-user {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #c44d7a; /* SkillBridge primary color */
+    border-radius: 6px;
+}
+
+.skill-value {
+    width: 60px;
+    font-size: 14px;
+    color: #1e293b;
+    font-weight: 600;
+    text-align: right;
+}
+
 .topbar-right {
     display: flex;
     align-items: center;
@@ -1284,6 +1340,91 @@ body {
     
     .user-info {
         display: none; /* Hide name on very small screens to save space */
+    }
+}
+
+/* =========================
+   LOGIN & SIGNUP RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+    .top-bar-login {
+        padding: 15px 20px;
+        box-sizing: border-box;
+    }
+
+    #login-box,
+    #signup-box {
+        width: 90%;
+        padding: 20px 15px;
+        margin: 20px auto;
+    }
+
+    .login-as,
+    .signup-as {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .login-as button,
+    .signup-as button {
+        flex: 1 1 auto;
+        min-width: 30%;
+        padding: 10px;
+        height: auto;
+    }
+
+    .data-login,
+    .signup-form {
+        width: 100%;
+    }
+
+    .email-login,
+    .password-login,
+    .signup-field {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .email-login label,
+    .password-login label,
+    .signup-field label {
+        width: 100%;
+        text-align: left;
+    }
+
+    .data-login input,
+    .password-box,
+    .signup-field > input,
+    .signup-field .password-box {
+        width: 100%;
+        max-width: none;
+    }
+
+    .password-box input {
+        width: 100%;
+    }
+
+    .data-login > button,
+    #signupButton {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    #login-box,
+    #signup-box {
+        width: 95%;
+        padding: 15px 10px;
+    }
+
+    .login-as button,
+    .signup-as button {
+        width: 100%;
+        flex: none;
     }
 }
 

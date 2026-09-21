@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Dashboard | SkillBridge</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Global CSS -->
+    <style>
+        :root {
+            /* Exact Brand Palette from your other portals */
+            --brand-primary: #5c1833;
+            --brand-accent: #c44d79;
+            --brand-light: #f6e8ed;
+            --bg-body: #f8fafc;
+            --bg-surface: #ffffff;
+            
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 70px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 32px;
+            z-index: 40;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--brand-light);
+            color: var(--brand-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 280px;
+            background: var(--brand-primary);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 50;
+        }
+
+        .logo-container {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+        }
+
+        .logo-container h2 {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            padding: 24px 16px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 14px 20px;
+            color: #F8B4B4; /* Light pink/white */
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        
+        .nav-link .material-icons-round {
+            font-size: 24px;
+        }
+
+        .nav-link:hover {
+            background: rgba(196, 77, 121, 0.4);
+            color: #ffffff;
+        }
+
+        .nav-link.active {
+            background: rgba(196, 77, 121, 0.75); /* Lighter maroon look */
+            color: #ffffff;
+        }
+
+        .nav-link.logout {
+            margin-top: auto;
+        }
+
+        .nav-link.logout:hover {
+            background: #fef2f2;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            margin-top: 70px;
+            padding: 32px;
+        }
+
+        .section-view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        /* Dashboard Overview Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-title {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--brand-primary);
+        }
+
+        /* Data Tables */
+        .data-card {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .data-card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .data-card-header h3 {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: var(--bg-body);
+            padding: 12px 24px;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 14px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-Applied { background: #e0f2fe; color: #0284c7; }
+        .status-Under.Review { background: #fef9c3; color: #ca8a04; }
+        .status-Selected { background: #dcfce7; color: #16a34a; }
+        .status-Rejected { background: #fee2e2; color: #dc2626; }
+
+        /* Profile & Forms */
+        .profile-container {
+            max-width: 800px;
+            background: var(--bg-surface);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            background: var(--bg-body);
+        }
+
+        .form-input:focus {
+            border-color: var(--brand-accent);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--brand-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-accent);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--bg-body);
+        }
+
+        /* Opportunities Grid */
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .opportunity-card {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .opportunity-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--brand-primary);
+            margin-bottom: 4px;
+        }
+
+        .opportunity-company {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .tag-list {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+
+        .tag {
+            background: var(--brand-light);
+            color: var(--brand-primary);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <h2>
+                <span class="material-icons-round" style="color: #F8B4B4; font-size: 28px;">spa</span>
+                SkillBridge
+            </h2>
+        </div>
+        <nav class="nav-links">
+            <a class="nav-link active" data-target="dashboard">
+                <span class="material-icons-round">grid_view</span>
+                Dashboard
+            </a>
+            <a class="nav-link" data-target="students">
+                <span class="material-icons-round">people</span>
+                Students
+            </a>
+            <a class="nav-link" data-target="opportunities">
+                <span class="material-icons-round">work</span>
+                Opportunities
+            </a>
+            <a class="nav-link" data-target="applications">
+                <span class="material-icons-round">assignment</span>
+                Applications
+            </a>
+            <a class="nav-link" data-target="profile">
+                <span class="material-icons-round">account_balance</span>
+                College Profile
+            </a>
+            <a class="nav-link logout" id="logoutBtn">
+                <span class="material-icons-round">logout</span>
+                Logout
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Top Nav -->
+    <header class="top-nav">
+        <div>
+            <span style="color: var(--text-muted); font-weight: 500;">College Portal</span>
+        </div>
+        <div class="user-profile">
+            <span style="font-weight: 600;" id="topUserName">College Admin</span>
+            <div class="avatar">C</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- SECTION: DASHBOARD OVERVIEW -->
+        <section id="dashboard" class="section-view active">
+            <div class="page-header">
+                <h1>Dashboard Overview</h1>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-title">Total Registered Students</div>
+                    <div class="stat-value" id="statStudents">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Students w/ Completed Profiles</div>
+                    <div class="stat-value" id="statCompleted">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Active Industry Opportunities</div>
+                    <div class="stat-value" id="statOpportunities">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-title">Pending Student Applications</div>
+                    <div class="stat-value" id="statPending">0</div>
+                </div>
+            </div>
+
+            <div class="data-card">
+                <div class="data-card-header">
+                    <h3>Recent Student Applications</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Opportunity</th>
+                                <th>Company</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentApplicationsList">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: STUDENTS -->
+        <section id="students" class="section-view">
+            <div class="page-header">
+                <h1>Registered Students</h1>
+            </div>
+            
+            <div class="data-card">
+                <div class="data-card-header">
+                    <h3>Student Roster</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Course & Year</th>
+                                <th>Profile Completion</th>
+                                <th>Applications</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studentsList">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: OPPORTUNITIES -->
+        <section id="opportunities" class="section-view">
+            <div class="page-header">
+                <h1>Available Industry Opportunities</h1>
+            </div>
+            <div class="opportunities-grid" id="opportunitiesList">
+                <!-- Populated via JS -->
+            </div>
+        </section>
+
+        <!-- SECTION: APPLICATIONS -->
+        <section id="applications" class="section-view">
+            <div class="page-header">
+                <h1>All Student Applications</h1>
+            </div>
+            
+            <div class="data-card">
+                <div class="data-card-header">
+                    <h3>Application Tracker</h3>
+                </div>
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student Name</th>
+                                <th>Opportunity</th>
+                                <th>Company</th>
+                                <th>Date Applied</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="allApplicationsList">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: PROFILE -->
+        <section id="profile" class="section-view">
+            <div class="page-header">
+                <h1 id="profileHeaderTitle">College Profile</h1>
+            </div>
+
+            <!-- View Mode -->
+            <div id="profileView" class="profile-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                    <h2>Institution Details</h2>
+                    <button class="btn btn-outline" id="editProfileBtn">Edit Profile</button>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">College/Institution Name</label>
+                    <p id="viewCollegeName" style="color: var(--text-muted);">-</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Contact Email</label>
+                    <p id="viewEmail" style="color: var(--text-muted);">-</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <p id="viewLocation" style="color: var(--text-muted);">-</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website</label>
+                    <p id="viewWebsite" style="color: var(--brand-accent);">-</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Department / Branch Info</label>
+                    <p id="viewDepartment" style="color: var(--text-muted);">-</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">About the College</label>
+                    <p id="viewDescription" style="color: var(--text-muted);">-</p>
+                </div>
+            </div>
+
+            <!-- Edit Mode -->
+            <div id="profileEdit" class="profile-container" style="display: none;">
+                <div style="margin-bottom: 24px;">
+                    <h2>Edit Details</h2>
+                    <p style="color: var(--text-muted);">Ensure your college name matches what students type during sign-up.</p>
+                </div>
+                <form id="profileForm">
+                    <div class="form-group">
+                        <label class="form-label">College Name (Must be exact)</label>
+                        <input type="text" id="editCollegeName" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="editEmail" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" id="editLocation" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Website URL</label>
+                        <input type="url" id="editWebsite" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Department Info (e.g. Placement Cell)</label>
+                        <input type="text" id="editDepartment" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">About</label>
+                        <textarea id="editDescription" class="form-input" rows="4"></textarea>
+                    </div>
+                    <div style="display: flex; gap: 16px; margin-top: 32px;">
+                        <button type="submit" class="btn btn-primary" id="saveProfileBtn">Save Changes</button>
+                        <button type="button" class="btn btn-outline" id="cancelProfileBtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="../js/config.js"></script>
+<script src="../js/collegeDashboard.js"></script>
+</body>
+</html>

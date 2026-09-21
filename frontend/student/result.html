@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assessment Result | SkillBridge</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../js/config.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -152,7 +153,7 @@
 
                 <!-- Bottom Action Buttons -->
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 fade-in delay-300">
-                    <button class="w-full sm:w-auto px-8 py-3 bg-sb-pink hover:bg-sb-pink-hover text-white rounded-xl font-medium transition-colors shadow-sm shadow-sb-pink/30 flex-1 sm:flex-none text-center">
+                    <button onclick="window.location.href='skillmap.html'" class="w-full sm:w-auto px-8 py-3 bg-sb-pink hover:bg-sb-pink-hover text-white rounded-xl font-medium transition-colors shadow-sm shadow-sb-pink/30 flex-1 sm:flex-none text-center">
                         View Skill Map
                     </button>
                     <button onclick="window.location.href='dashboard.html'" class="w-full sm:w-auto px-8 py-3 border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-medium transition-colors flex-1 sm:flex-none text-center">
@@ -173,7 +174,7 @@
             }
 
             try {
-                const response = await fetch("http://localhost:4000/api/assessment/latest", {
+                const response = await fetch("${API_BASE_URL}/api/assessment/latest", {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`

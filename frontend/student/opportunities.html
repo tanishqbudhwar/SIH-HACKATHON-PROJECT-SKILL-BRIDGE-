@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunities - SkillBridge</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-header {
+            margin-bottom: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .page-header h1 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+        
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            font-size: 14px;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: #c44d7a;
+            color: white;
+            border-color: #c44d7a;
+        }
+
+        .opportunities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .opp-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .opp-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: #cbd5e1;
+        }
+
+        .opp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .company-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .company-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #64748b;
+        }
+
+        .company-details h3 {
+            font-size: 18px;
+            color: #1e293b;
+            margin: 0 0 4px 0;
+        }
+        
+        .company-details p {
+            font-size: 14px;
+            color: #64748b;
+            margin: 0;
+        }
+        
+        .opp-type {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .opp-description {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .opp-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 16px 0;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            color: #64748b;
+        }
+        
+        .meta-item .material-icons-round {
+            font-size: 16px;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            font-size: 12px;
+            padding: 4px 8px;
+            background: #fdf2f6;
+            color: #c44d7a;
+            border-radius: 4px;
+        }
+
+        .opp-actions {
+            margin-top: auto;
+            display: flex;
+            gap: 12px;
+        }
+        
+        .btn-apply {
+            flex: 1;
+            padding: 10px 0;
+            background: #c44d7a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn-apply:hover {
+            background: #a93c61;
+        }
+
+        .btn-apply:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 64px 0;
+            color: #64748b;
+        }
+        
+        .empty-state .material-icons-round {
+            font-size: 48px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-dashboard">
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <span class="material-icons-round logo-icon">spa</span>
+                <h2>SkillBridge</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button type="button" onclick="window.location.href='dashboard.html'">
+                    <span class="material-icons-round">grid_view</span> Dashboard
+                </button>
+                <button type="button" onclick="window.location.href='assessment.html'">
+                    <span class="material-icons-round">task_alt</span> Skill Assessment
+                </button>
+                <button type="button" onclick="window.location.href='skillmap.html'">
+                    <span class="material-icons-round">account_tree</span> Skill Map
+                </button>
+                <button type="button" class="active" onclick="window.location.href='opportunities.html'">
+                    <span class="material-icons-round">work</span> Opportunities
+                </button>
+                <button type="button" onclick="window.location.href='applications.html'">
+                    <span class="material-icons-round">description</span> Applications
+                </button>
+                <button type="button" onclick="window.location.href='portfolio.html'">
+                    <span class="material-icons-round">folder_special</span> Portfolio
+                </button>
+                <button type="button" onclick="window.location.href='profile.html'">
+                    <span class="material-icons-round">person</span> Profile
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">settings</span> Settings
+                </button>
+                <button type="button" id="logoutBtn">
+                    <span class="material-icons-round">logout</span> Log Out
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Area -->
+        <main class="dashboard-main">
+            <!-- Top Bar -->
+            <header class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false">
+                        <span class="material-icons-round">menu</span>
+                    </button>
+                </div>
+                <div class="topbar-right">
+                    <span class="material-icons-round notification-icon">notifications_none</span>
+                    <div class="user-profile-menu">
+                        <div class="user-info">
+                            <span class="user-name" id="topUserName">Student Name</span>
+                            <span class="user-role">Student</span>
+                        </div>
+                        <span class="material-icons-round dropdown-icon">expand_more</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section class="dashboard-content">
+                <div class="page-header">
+                    <div>
+                        <h1>Opportunities</h1>
+                        <p>Find the best internships and entry-level roles to kickstart your career.</p>
+                    </div>
+                </div>
+
+                <div class="filter-bar" id="filterBar">
+                    <button class="filter-btn active" data-filter="All">All Opportunities</button>
+                    <button class="filter-btn" data-filter="Internship">Internships</button>
+                    <button class="filter-btn" data-filter="Full-Time">Full-Time</button>
+                    <button class="filter-btn" data-filter="Contract">Contract</button>
+                </div>
+
+                <div class="opportunities-grid" id="opportunitiesContainer">
+                    <div class="empty-state">
+                        <span class="material-icons-round">hourglass_empty</span>
+                        <h3>Loading opportunities...</h3>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/config.js"></script>
+<script src="../js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userData = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            if(!userData || !token) {
+                window.location.href = '../login.html';
+                return;
+            }
+
+            try {
+                const user = JSON.parse(userData);
+                if(user.name) {
+                    const nameSpan = document.getElementById('topUserName');
+                    if(nameSpan) nameSpan.textContent = user.name;
+                }
+
+                const container = document.getElementById('opportunitiesContainer');
+                
+                // Fetch opportunities
+                const response = await fetch("${API_BASE_URL}/api/opportunities", {
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+                
+                if(response.ok) {
+                    const data = await response.json();
+                    let opportunities = data.opportunities || data; // depending on backend structure
+                    
+                    if(!Array.isArray(opportunities)) {
+                        opportunities = [opportunities];
+                    }
+
+                    const renderOpportunities = (filter = "All") => {
+                        let filtered = opportunities;
+                        if(filter !== "All") {
+                            filtered = opportunities.filter(op => 
+                                op.opportunityType.toLowerCase() === filter.toLowerCase() || 
+                                (filter === "Full-Time" && op.opportunityType.toLowerCase().includes("full"))
+                            );
+                        }
+
+                        if(filtered.length === 0) {
+                            container.innerHTML = `
+                                <div class="empty-state" style="grid-column: 1 / -1;">
+                                    <span class="material-icons-round">search_off</span>
+                                    <h3>No opportunities found</h3>
+                                    <p>Check back later for new roles.</p>
+                                </div>
+                            `;
+                            return;
+                        }
+
+                        container.innerHTML = filtered.map(opp => `
+                            <div class="opp-card">
+                                <div class="opp-header">
+                                    <div class="company-info">
+                                        <div class="company-logo">
+                                            <span class="material-icons-round">business</span>
+                                        </div>
+                                        <div class="company-details">
+                                            <h3>${opp.title}</h3>
+                                            <p>${opp.companyName}</p>
+                                        </div>
+                                    </div>
+                                    <span class="opp-type">${opp.opportunityType}</span>
+                                </div>
+                                
+                                <p class="opp-description">${opp.shortDescription || opp.description || "No description provided."}</p>
+                                
+                                <div class="opp-meta">
+                                    <div class="meta-item">
+                                        <span class="material-icons-round">place</span>
+                                        ${opp.location || "Remote"}
+                                    </div>
+                                    <div class="meta-item">
+                                        <span class="material-icons-round">payments</span>
+                                        ${opp.stipend || opp.salary || "Unpaid"}
+                                    </div>
+                                </div>
+
+                                <div class="skills-list">
+                                    ${(opp.requiredSkills || []).slice(0, 4).map(s => `<span class="skill-tag">${typeof s === 'string' ? s : s.name}</span>`).join('')}
+                                    ${(opp.requiredSkills || []).length > 4 ? `<span class="skill-tag">+${opp.requiredSkills.length - 4}</span>` : ''}
+                                </div>
+
+                                <div class="opp-actions">
+                                    <button class="btn-apply" onclick="applyToOpportunity('${opp._id}', this)">Apply Now</button>
+                                </div>
+                            </div>
+                        `).join('');
+                    };
+
+                    renderOpportunities();
+
+                    // Filter logic
+                    const filterBtns = document.querySelectorAll('.filter-btn');
+                    filterBtns.forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            filterBtns.forEach(b => b.classList.remove('active'));
+                            e.target.classList.add('active');
+                            renderOpportunities(e.target.dataset.filter);
+                        });
+                    });
+
+                } else {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <span class="material-icons-round">error</span>
+                            <h3>Failed to load opportunities</h3>
+                        </div>
+                    `;
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        });
+
+        async function applyToOpportunity(oppId, btnElement) {
+            const token = localStorage.getItem('token');
+            try {
+                btnElement.disabled = true;
+                btnElement.textContent = "Applying...";
+                
+                const response = await fetch("${API_BASE_URL}/api/applications", {
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({ opportunityId: oppId })
+                });
+
+                const data = await response.json();
+
+                if(response.ok) {
+                    btnElement.textContent = "Applied Successfully";
+                    btnElement.style.background = "#10b981"; // Success green
+                    setTimeout(() => {
+                        btnElement.textContent = "Applied";
+                    }, 2000);
+                } else {
+                    alert(data.message || "Failed to apply");
+                    btnElement.disabled = false;
+                    btnElement.textContent = "Apply Now";
+                }
+            } catch(error) {
+                console.error("Error applying:", error);
+                alert("Server error. Please try again.");
+                btnElement.disabled = false;
+                btnElement.textContent = "Apply Now";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge | Industry Portal</title>
+    <!-- Using Inter font for a clean, professional SaaS look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Core Brand Colors from SkillBridge */
+            --brand-primary: #5c1833;
+            /* Dark Maroon */
+            --brand-accent: #c44d79;
+            /* Pink/Burgundy Accent */
+            --brand-accent-hover: #a83d63;
+
+            /* UI Colors */
+            --bg-body: #f8f9fc;
+            --bg-surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+
+            /* Status Colors */
+            --status-success: #10b981;
+            --status-success-bg: #d1fae5;
+            --status-warning: #f59e0b;
+            --status-warning-bg: #fef3c7;
+            --status-info: #3b82f6;
+            --status-info-bg: #dbeafe;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* Layout */
+        .sidebar {
+            width: 260px;
+            background-color: var(--brand-primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            flex-shrink: 0;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            /* allows text truncation inside */
+        }
+
+        /* Sidebar Brand */
+        .brand-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            gap: 12px;
+        }
+
+        .brand-header svg {
+            width: 28px;
+            height: 28px;
+            fill: var(--brand-accent);
+        }
+
+        .brand-header span {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        /* Sidebar Navigation */
+        .nav-menu {
+            list-style: none;
+            padding: 16px 12px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 4px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .nav-link.active {
+            background-color: var(--brand-accent);
+            color: white;
+        }
+
+        .nav-link svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+            opacity: 0.9;
+        }
+
+        /* Header */
+        .top-header {
+            height: 72px;
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            flex-shrink: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            margin-left: -8px;
+            color: var(--text-main);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            margin-left: auto;
+        }
+
+        .notification-btn {
+            background: none;
+            border: none;
+            position: relative;
+            cursor: pointer;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .notification-btn:hover {
+            color: var(--text-main);
+        }
+
+        .notification-dot {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            width: 8px;
+            height: 8px;
+            background-color: var(--brand-accent);
+            border-radius: 50%;
+            border: 2px solid var(--bg-surface);
+        }
+
+        .user-profile-dropdown {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+
+        .user-profile-dropdown:hover {
+            background-color: var(--bg-body);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--brand-primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .user-role {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Main Dashboard Content */
+        .dashboard-content {
+            padding: 32px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .welcome-section {
+            margin-bottom: 32px;
+        }
+
+        .welcome-section h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .welcome-section p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .stat-title {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--brand-accent);
+        }
+
+        /* Layout Grids */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .grid-left {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .grid-right {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Sections */
+        .card-section {
+            background: var(--bg-surface);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+        }
+
+        /* Match Cards */
+        .match-card {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .match-card:hover {
+            border-color: #cbd5e1;
+        }
+
+        .match-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        .candidate-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .candidate-meta {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .skills-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-width: 300px;
+        }
+
+        .skill-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .skill-name {
+            width: 80px;
+            color: var(--text-muted);
+        }
+
+        .skill-bar {
+            flex: 1;
+            height: 6px;
+            background-color: var(--bg-body);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-fill {
+            height: 100%;
+            background-color: var(--brand-accent);
+            border-radius: 3px;
+        }
+
+        .skill-pct {
+            width: 32px;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .match-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 12px;
+            margin-left: 24px;
+            min-width: 120px;
+        }
+
+        .match-badge {
+            background-color: #fdf2f6;
+            color: var(--brand-accent);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: var(--brand-accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-accent-hover);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--bg-body);
+        }
+
+        .btn-text {
+            background: transparent;
+            color: var(--brand-accent);
+            padding: 0;
+        }
+
+        .btn-text:hover {
+            text-decoration: underline;
+        }
+
+        /* Tables / Lists */
+        .app-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .app-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .app-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .app-role {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .app-candidate {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .app-status {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 8px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-review {
+            background-color: var(--status-warning-bg);
+            color: var(--status-warning);
+        }
+
+        .status-shortlisted {
+            background-color: var(--status-success-bg);
+            color: var(--status-success);
+        }
+
+        .status-new {
+            background-color: var(--status-info-bg);
+            color: var(--status-info);
+        }
+
+        /* Active Opportunities */
+        .opp-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .opp-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .opp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .opp-title {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .opp-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .opp-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .opp-match {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--brand-accent);
+        }
+
+        /* Overlay for Mobile */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar-overlay.active {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .top-header {
+                padding: 0 20px;
+            }
+
+            .dashboard-content {
+                padding: 20px;
+            }
+
+            .match-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .match-actions {
+                margin-left: 0;
+                margin-top: 20px;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-breakdown {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Mobile Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand-header">
+            <!-- Brand Logo SVG -->
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 10.5L8.5 7L7.09 8.41L9.17 10.5H4V12.5H9.17L7.09 14.59L8.5 16L12 12.5V10.5ZM16.91 14.59L14.83 12.5H20V10.5H14.83L16.91 8.41L15.5 7L12 10.5V12.5L15.5 16L16.91 14.59Z" />
+            </svg>
+            <span>SkillBridge</span>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="dashboard.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" />
+                    </svg>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="profile.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z" />
+                    </svg>
+                    Company Profile
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="post.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+                    </svg>
+                    Post Opportunity
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="manage.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M20 6h-4V4c0-1.11-.89-2-2-2h-4c-1.11 0-2 .89-2 2v2H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-6 0h-4V4h4v2z" />
+                    </svg>
+                    Manage Opportunities
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="find.html" class="nav-link active">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                    </svg>
+                    Find Students
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="applications.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z" />
+                    </svg>
+                    Applications
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="requirement.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z" />
+                    </svg>
+                    Skill Requirements
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="program.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z" />
+                    </svg>
+                    Learning Programs
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="notification.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+                    </svg>
+                    Notifications
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="setting.html" class="nav-link">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+                    </svg>
+                    Settings
+                </a>
+            </li>
+            <li class="nav-item" style="margin-top: auto; padding-top: 16px;">
+                <a href="../signup.html" class="nav-link" id="logoutBtn">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z" />
+                    </svg>
+                    Log Out
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <div class="main-wrapper">
+        <!-- Header -->
+        <header class="top-header">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+                </svg>
+            </button>
+
+            <div class="header-actions">
+                <button class="notification-btn">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                        <path
+                            d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z" />
+                    </svg>
+                    <span class="notification-dot"></span>
+                </button>
+
+                <div class="user-profile-dropdown">
+                    <div class="avatar">A</div>
+                    <div class="user-details">
+                        <span class="user-name" id="companyName">ABC Technologies</span>
+                        <span class="user-role">Industry</span>
+                    </div>
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"
+                        style="color: var(--text-muted);">
+                        <path d="M7 10l5 5 5-5z" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="dashboard-content">
+    <div class="welcome-section">
+        <div id="welcomeMessage" style="display:none;"></div><h1>Find Students</h1>
+        <p>This page is under construction.</p>
+    </div>
+</main>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script src="../js/config.js"></script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            }
+
+            // Open sidebar on hamburger click
+            mobileMenuBtn.addEventListener('click', toggleSidebar);
+
+            // Close sidebar when clicking outside on mobile
+            overlay.addEventListener('click', toggleSidebar);
+
+            // Native Navigation Active State handling
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    // Close mobile menu when a link is clicked
+                    if (window.innerWidth <= 768) {
+                        if (typeof toggleSidebar === 'function') toggleSidebar();
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="../js/findStudents.js"></script>
+    <script src="../js/industryDashboard.js"></script>
+</body>
+
+</html>

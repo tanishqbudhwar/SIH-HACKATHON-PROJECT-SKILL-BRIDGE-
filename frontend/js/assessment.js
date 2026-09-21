@@ -9,15 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Skills are now loaded from skillData.js via window.ALL_SKILLS
 
     // Load top user info
-    const token = localStorage.getItem('token');
-    if (token) {
+    const userData = localStorage.getItem("user");
+    if (userData) {
         try {
-            const payload = JSON.parse(atob(token.split('.')[1]));
-            if (payload.name) {
-                document.getElementById('topUserName').textContent = payload.name;
+            const user = JSON.parse(userData);
+            if (user && user.name) {
+                const topUserName = document.getElementById("topUserName");
+                if (topUserName) {
+                    topUserName.textContent = user.name;
+                }
             }
         } catch (e) {
-            console.error('Error parsing token for username');
+            console.error('Error parsing user data for username');
         }
     }
 

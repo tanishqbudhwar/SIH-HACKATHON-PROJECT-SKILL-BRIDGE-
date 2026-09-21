@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio - SkillBridge</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- html2pdf.js for PDF generation -->
+    <script src="../js/config.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .page-header h1 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c44d7a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(196, 77, 122, 0.2);
+        }
+
+        .btn-download:hover {
+            background: #a93c61;
+        }
+
+        /* Portfolio Container Styled for A4 Print Approximation */
+        .portfolio-wrapper {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        #portfolioContent {
+            color: #334155;
+        }
+
+        .pf-header {
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 24px;
+        }
+
+        .pf-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #94a3b8;
+        }
+
+        .pf-title-block h1 {
+            font-size: 32px;
+            color: #0f172a;
+            margin: 0 0 8px 0;
+        }
+
+        .pf-title-block h2 {
+            font-size: 18px;
+            color: #c44d7a;
+            margin: 0 0 12px 0;
+            font-weight: 500;
+        }
+
+        .pf-contact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .pf-contact span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pf-section {
+            margin-bottom: 32px;
+        }
+
+        .pf-section-title {
+            font-size: 20px;
+            color: #1e293b;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pf-section-title .material-icons-round {
+            color: #c44d7a;
+        }
+
+        .pf-bio {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .pf-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .pf-skill-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .pf-skill-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .pf-skill-bar-bg {
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .pf-skill-bar-fill {
+            height: 100%;
+            background: #c44d7a;
+            border-radius: 4px;
+        }
+        
+        .pf-status {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 64px 0;
+            color: #64748b;
+        }
+        
+        .empty-state .material-icons-round {
+            font-size: 48px;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-dashboard">
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <span class="material-icons-round logo-icon">spa</span>
+                <h2>SkillBridge</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button type="button" onclick="window.location.href='dashboard.html'">
+                    <span class="material-icons-round">grid_view</span> Dashboard
+                </button>
+                <button type="button" onclick="window.location.href='assessment.html'">
+                    <span class="material-icons-round">task_alt</span> Skill Assessment
+                </button>
+                <button type="button" onclick="window.location.href='skillmap.html'">
+                    <span class="material-icons-round">account_tree</span> Skill Map
+                </button>
+                <button type="button" onclick="window.location.href='opportunities.html'">
+                    <span class="material-icons-round">work</span> Opportunities
+                </button>
+                <button type="button" onclick="window.location.href='applications.html'">
+                    <span class="material-icons-round">description</span> Applications
+                </button>
+                <button type="button" class="active" onclick="window.location.href='portfolio.html'">
+                    <span class="material-icons-round">folder_special</span> Portfolio
+                </button>
+                <button type="button" onclick="window.location.href='profile.html'">
+                    <span class="material-icons-round">person</span> Profile
+                </button>
+                <button type="button">
+                    <span class="material-icons-round">settings</span> Settings
+                </button>
+                <button type="button" id="logoutBtn">
+                    <span class="material-icons-round">logout</span> Log Out
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Area -->
+        <main class="dashboard-main">
+            <!-- Top Bar -->
+            <header class="dashboard-topbar">
+                <div class="topbar-left">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false">
+                        <span class="material-icons-round">menu</span>
+                    </button>
+                </div>
+                <div class="topbar-right">
+                    <span class="material-icons-round notification-icon">notifications_none</span>
+                    <div class="user-profile-menu">
+                        <div class="user-info">
+                            <span class="user-name" id="topUserName">Student Name</span>
+                            <span class="user-role">Student</span>
+                        </div>
+                        <span class="material-icons-round dropdown-icon">expand_more</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <section class="dashboard-content">
+                <div class="page-header">
+                    <div>
+                        <h1>My Portfolio</h1>
+                        <p>Your automated skills portfolio based on your assessments.</p>
+                    </div>
+                    <button class="btn-download" id="downloadPdfBtn">
+                        <span class="material-icons-round">picture_as_pdf</span> Download PDF
+                    </button>
+                </div>
+
+                <div class="portfolio-wrapper">
+                    <div id="portfolioContent">
+                        <div class="empty-state">
+                            <span class="material-icons-round">hourglass_empty</span>
+                            <h3>Generating Portfolio...</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userData = localStorage.getItem('user');
+            const token = localStorage.getItem('token');
+            if(!userData || !token) {
+                window.location.href = '../login.html';
+                return;
+            }
+
+            try {
+                const user = JSON.parse(userData);
+                if(user.name) {
+                    const nameSpan = document.getElementById('topUserName');
+                    if(nameSpan) nameSpan.textContent = user.name;
+                }
+
+                // Fetch student profile for details (college, course, bio)
+                let studentProfile = null;
+                try {
+                    const profileRes = await fetch("${API_BASE_URL}/api/profile", {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if(profileRes.ok) {
+                        const profileData = await profileRes.json();
+                        studentProfile = profileData.profile || profileData;
+                    }
+                } catch(e) { console.error("Profile fetch error", e); }
+
+                // Fetch assessment history for skills
+                let history = [];
+                try {
+                    const historyRes = await fetch("${API_BASE_URL}/api/assessment/history", {
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+                    if(historyRes.ok) {
+                        const historyData = await historyRes.json();
+                        history = historyData.history || historyData || [];
+                    }
+                } catch(e) { console.error("History fetch error", e); }
+
+                const container = document.getElementById('portfolioContent');
+                
+                // Extract best scores for skills
+                const skillScores = new Map();
+                history.forEach(assessment => {
+                    if (assessment.skill) {
+                        const currentBest = skillScores.get(assessment.skill);
+                        if (!currentBest || assessment.score > currentBest.score) {
+                            skillScores.set(assessment.skill, assessment);
+                        }
+                    }
+                });
+
+                const bio = studentProfile && studentProfile.bio 
+                    ? studentProfile.bio 
+                    : "A passionate student actively learning and upskilling through SkillBridge. Ready to take on new challenges and contribute to impactful projects.";
+                
+                const college = studentProfile && studentProfile.college ? studentProfile.college : "University Student";
+                const course = studentProfile && studentProfile.course ? studentProfile.course : "B.Tech";
+                const year = studentProfile && studentProfile.year ? studentProfile.year : "3rd Year";
+
+                let avatarHtml = `<span class="material-icons-round">person</span>`;
+                if(studentProfile && studentProfile.profilePic) {
+                    avatarHtml = `<img src="${studentProfile.profilePic}" alt="Profile Picture" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">`;
+                }
+
+                // Generate HTML
+                let html = `
+                    <div class="pf-header">
+                        <div class="pf-avatar" style="overflow: hidden;">
+                            ${avatarHtml}
+                        </div>
+                        <div class="pf-title-block">
+                            <h1>${user.name}</h1>
+                            <h2>${course} Student • ${year}</h2>
+                            <div class="pf-contact">
+                                <span><span class="material-icons-round" style="font-size: 16px;">email</span> ${user.email}</span>
+                                <span><span class="material-icons-round" style="font-size: 16px;">school</span> ${college}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pf-section">
+                        <h3 class="pf-section-title">
+                            <span class="material-icons-round">account_circle</span> About Me
+                        </h3>
+                        <p class="pf-bio">${bio}</p>
+                    </div>
+
+                    <div class="pf-section">
+                        <h3 class="pf-section-title">
+                            <span class="material-icons-round">verified</span> Verified Skills
+                        </h3>
+                `;
+
+                if(skillScores.size > 0) {
+                    html += `<div class="pf-skills-grid">`;
+                    skillScores.forEach((assessment, skillName) => {
+                        let statusText = "Needs Work";
+                        if(assessment.score >= 80) statusText = "Mastered";
+                        else if(assessment.score >= 40) statusText = "Proficient";
+                        
+                        html += `
+                            <div class="pf-skill-item">
+                                <div class="pf-skill-header">
+                                    <span>${skillName} <span class="pf-status">(${statusText})</span></span>
+                                    <span>${assessment.score}%</span>
+                                </div>
+                                <div class="pf-skill-bar-bg">
+                                    <div class="pf-skill-bar-fill" style="width: ${assessment.score}%;"></div>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += `</div>`;
+                } else {
+                    html += `<p style="color: #64748b; font-style: italic;">No skills verified yet. Complete assessments to showcase your skills here.</p>`;
+                }
+
+                html += `</div>`;
+                container.innerHTML = html;
+
+            } catch(e) {
+                console.error(e);
+            }
+        });
+
+        // PDF Generation Logic
+        document.getElementById('downloadPdfBtn').addEventListener('click', () => {
+            const element = document.getElementById('portfolioContent');
+            const opt = {
+                margin:       10,
+                filename:     'SkillBridge_Portfolio.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+        });
+    </script>
+</body>
+</html>

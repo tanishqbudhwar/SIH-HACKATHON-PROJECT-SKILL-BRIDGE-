@@ -1,19 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Student Profile - SkillBridge</title>
-
+    <title>My Profile - SkillBridge</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-header {
+            margin-bottom: 32px;
+        }
+        
+        .page-header h1 {
+            font-size: 28px;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+        
+        .page-header p {
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        .profile-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .profile-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Avatar Section */
+        .avatar-section {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #fdf2f6;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(196, 77, 122, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #c44d7a;
+            position: relative;
+        }
+
+        .avatar-edit-btn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #c44d7a;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+        }
+
+        .avatar-edit-btn:hover {
+            background: #a93c61;
+        }
+        
+        .avatar-edit-btn .material-icons-round {
+            font-size: 18px;
+        }
+
+        .avatar-section h2 {
+            font-size: 20px;
+            color: #1e293b;
+            margin: 0;
+        }
+        
+        .avatar-section p {
+            color: #64748b;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Form Styling */
+        .form-section-title {
+            font-size: 18px;
+            color: #1e293b;
+            margin: 0 0 20px 0;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .form-section-title .material-icons-round {
+            color: #c44d7a;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .form-group input, .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            color: #334155;
+            transition: all 0.2s;
+            background: #f8fafc;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #c44d7a;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(196, 77, 122, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .btn-save {
+            width: 100%;
+            padding: 14px;
+            background: #c44d7a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(196, 77, 122, 0.2);
+        }
+
+        .btn-save:hover {
+            background: #a93c61;
+        }
+        
+        .btn-save:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        /* Toast Notification */
+        #toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1000;
+        }
+        
+        #toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+    </style>
 </head>
-
 <body>
-
     <div class="student-dashboard">
-
+        <!-- Overlay for mobile sidebar -->
+        <div id="sidebarOverlay" class="sidebar-overlay"></div>
         <!-- Sidebar -->
         <aside class="dashboard-sidebar">
             <div class="sidebar-header">
@@ -28,16 +248,16 @@
                 <button type="button" onclick="window.location.href='assessment.html'">
                     <span class="material-icons-round">task_alt</span> Skill Assessment
                 </button>
-                <button type="button">
+                <button type="button" onclick="window.location.href='skillmap.html'">
                     <span class="material-icons-round">account_tree</span> Skill Map
                 </button>
-                <button type="button">
+                <button type="button" onclick="window.location.href='opportunities.html'">
                     <span class="material-icons-round">work</span> Opportunities
                 </button>
-                <button type="button">
+                <button type="button" onclick="window.location.href='applications.html'">
                     <span class="material-icons-round">description</span> Applications
                 </button>
-                <button type="button">
+                <button type="button" onclick="window.location.href='portfolio.html'">
                     <span class="material-icons-round">folder_special</span> Portfolio
                 </button>
                 <button type="button" class="active" onclick="window.location.href='profile.html'">
@@ -56,13 +276,16 @@
         <main class="dashboard-main">
             <!-- Top Bar -->
             <header class="dashboard-topbar">
-                <div class="topbar-left"></div>
+                <div class="topbar-left">
+                    <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Open navigation menu" aria-expanded="false">
+                        <span class="material-icons-round">menu</span>
+                    </button>
+                </div>
                 <div class="topbar-right">
                     <span class="material-icons-round notification-icon">notifications_none</span>
                     <div class="user-profile-menu">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Profile Picture" class="profile-pic" id="topProfilePic">
                         <div class="user-info">
-                            <span class="user-name" id="topUserName">Sachin</span>
+                            <span class="user-name" id="topUserName">Student Name</span>
                             <span class="user-role">Student</span>
                         </div>
                         <span class="material-icons-round dropdown-icon">expand_more</span>
@@ -70,77 +293,86 @@
                 </div>
             </header>
 
-
+            <!-- Dashboard Content -->
             <section class="dashboard-content">
-
-                <h1>My Profile</h1>
-
-                <p class="dashboard-subtitle">
-                    Complete your profile to improve your opportunity matching.
-                </p>
-
-
-                <div class="profile-card">
-
-                    <div class="profile-field">
-                        <label>College</label>
-                        <input
-                            type="text"
-                            id="college"
-                            placeholder="Enter your college">
-                    </div>
-
-
-                    <div class="profile-field">
-                        <label>Course</label>
-                        <input
-                            type="text"
-                            id="course"
-                            placeholder="e.g. BTech CSE">
-                    </div>
-
-
-                    <div class="profile-field">
-                        <label>Year</label>
-                        <input
-                            type="number"
-                            id="year"
-                            placeholder="e.g. 2">
-                    </div>
-
-
-                    <div class="profile-field">
-                        <label>Skills</label>
-                        <input
-                            type="text"
-                            id="skills"
-                            placeholder="C++, Python, HTML, JavaScript">
-                    </div>
-
-
-                    <div class="profile-field">
-                        <label>Bio</label>
-                        <textarea
-                            id="bio"
-                            placeholder="Tell us about yourself"></textarea>
-                    </div>
-
-
-                    <button type="button" id="saveProfileButton">
-                        Save Profile
-                    </button>
-
+                <div class="page-header">
+                    <h1>My Profile</h1>
+                    <p>Complete your profile to improve your opportunity matching and portfolio.</p>
                 </div>
 
+                <div class="profile-container">
+                    <!-- Left Sidebar - Avatar -->
+                    <div class="profile-card avatar-section">
+                        <div class="avatar-circle" id="avatarCircle">
+                            <span class="material-icons-round" id="avatarIcon">person</span>
+                            <img id="avatarPreview" src="" alt="Profile Picture" style="display: none; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; position: absolute; top: 0; left: 0;">
+                            
+                            <input type="file" id="profilePicInput" accept="image/*" style="display: none;">
+                            <button class="avatar-edit-btn" aria-label="Edit Profile Picture" onclick="document.getElementById('profilePicInput').click()">
+                                <span class="material-icons-round">edit</span>
+                            </button>
+                        </div>
+                        <div id="avatarUserInfo">
+                            <h2 id="cardUserName">Loading...</h2>
+                            <p id="cardUserEmail">Loading...</p>
+                        </div>
+                    </div>
+
+                    <!-- Right Main Form -->
+                    <div class="profile-card">
+                        
+                        <h3 class="form-section-title">
+                            <span class="material-icons-round">school</span> Academic Information
+                        </h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>College / University</label>
+                                <input type="text" id="college" placeholder="e.g. SkillBridge University">
+                            </div>
+                            <div class="form-group">
+                                <label>Course / Degree</label>
+                                <input type="text" id="course" placeholder="e.g. B.Tech Computer Science">
+                            </div>
+                            <div class="form-group">
+                                <label>Year of Study</label>
+                                <input type="number" id="year" placeholder="e.g. 3">
+                            </div>
+                        </div>
+
+                        <h3 class="form-section-title">
+                            <span class="material-icons-round">psychology</span> Skills & Bio
+                        </h3>
+
+                        <div class="form-grid full">
+                            <div class="form-group">
+                                <label>Core Skills (Comma separated)</label>
+                                <input type="text" id="skills" placeholder="e.g. React, Node.js, Python, UI/UX">
+                            </div>
+                            <div class="form-group">
+                                <label>About Me (Bio)</label>
+                                <textarea id="bio" placeholder="Tell companies and recruiters about your passions, side projects, and what you are looking for in your career..."></textarea>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-save" id="saveProfileButton">
+                            <span class="material-icons-round">save</span> Save Profile
+                        </button>
+
+                    </div>
+                </div>
             </section>
-
         </main>
-
+    </div>
+    
+    <!-- Success Toast -->
+    <div id="toast">
+        <span class="material-icons-round">check_circle</span>
+        <span>Profile updated successfully!</span>
     </div>
 
-
+    <script src="../js/config.js"></script>
+<script src="../js/dashboard.js"></script>
     <script src="../js/profile.js"></script>
-
 </body>
-
 </html>
