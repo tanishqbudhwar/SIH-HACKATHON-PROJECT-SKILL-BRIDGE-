@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Generate Questions via Backend API
     async function generateQuestions() {
         try {
-            const response = await fetch("${API_BASE_URL}/api/assessment/generate", {
+            const response = await fetch(`${API_BASE_URL}/api/assessment/generate`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -182,7 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nextBtnText.textContent = "Submitting...";
 
         try {
-            const response = await fetch("${API_BASE_URL}/api/assessment/submit", {
+            const response = await fetch(`${API_BASE_URL}/api/assessment/submit`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

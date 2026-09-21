@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 publishBtn.textContent = "Publishing...";
             }
 
-            const response = await fetch("${API_BASE_URL}/api/opportunities", {
+            const response = await fetch(`${API_BASE_URL}/api/opportunities`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

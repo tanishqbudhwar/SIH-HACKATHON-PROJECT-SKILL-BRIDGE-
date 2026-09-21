@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     let allStudents = [];
 
     try {
-        const response = await fetch("${API_BASE_URL}/api/profile/students", {
+        const response = await fetch(`${API_BASE_URL}/api/profile/students`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 

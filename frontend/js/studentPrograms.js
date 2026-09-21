@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Fetch student's profile to know their current skills for matching
     async function fetchStudentProfile() {
         try {
-            const res = await fetch("${API_BASE_URL}/api/profile", {
+            const res = await fetch(`${API_BASE_URL}/api/profile`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             if (res.ok) {
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchPrograms() {
         try {
             container.innerHTML = `<div class="loading-state">Loading learning programs...</div>`;
-            const res = await fetch("${API_BASE_URL}/api/programs", {
+            const res = await fetch(`${API_BASE_URL}/api/programs`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 

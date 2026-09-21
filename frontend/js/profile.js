@@ -31,7 +31,7 @@ let currentProfilePicBase64 = null;
 // =========================
 const loadProfile = async () => {
     try {
-        const response = await fetch("${API_BASE_URL}/api/profile", {
+        const response = await fetch(`${API_BASE_URL}/api/profile`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
@@ -113,7 +113,7 @@ saveProfileButton.addEventListener("click", async () => {
         saveProfileButton.disabled = true;
         saveProfileButton.innerHTML = `<span class="material-icons-round">hourglass_empty</span> Saving...`;
 
-        const response = await fetch("${API_BASE_URL}/api/profile", {
+        const response = await fetch(`${API_BASE_URL}/api/profile`, {
             method: "POST", // Now works as an upsert based on backend change
             headers: {
                 "Content-Type": "application/json",

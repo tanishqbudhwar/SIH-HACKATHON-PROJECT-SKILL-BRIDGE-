@@ -299,7 +299,7 @@
                 // Fetch student profile for details (college, course, bio)
                 let studentProfile = null;
                 try {
-                    const profileRes = await fetch("${API_BASE_URL}/api/profile", {
+                    const profileRes = await fetch(`${API_BASE_URL}/api/profile`, {
                         headers: { "Authorization": `Bearer ${token}` }
                     });
                     if(profileRes.ok) {
@@ -311,7 +311,7 @@
                 // Fetch assessment history for skills
                 let history = [];
                 try {
-                    const historyRes = await fetch("${API_BASE_URL}/api/assessment/history", {
+                    const historyRes = await fetch(`${API_BASE_URL}/api/assessment/history`, {
                         headers: { "Authorization": `Bearer ${token}` }
                     });
                     if(historyRes.ok) {

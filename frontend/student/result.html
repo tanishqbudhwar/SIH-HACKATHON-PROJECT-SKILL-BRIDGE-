@@ -174,7 +174,7 @@
             }
 
             try {
-                const response = await fetch("${API_BASE_URL}/api/assessment/latest", {
+                const response = await fetch(`${API_BASE_URL}/api/assessment/latest`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${token}`

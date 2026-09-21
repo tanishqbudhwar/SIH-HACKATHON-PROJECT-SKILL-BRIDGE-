@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             container.innerHTML = `<div class="loading-state">Loading your opportunities...</div>`;
             
-            const res = await fetch("${API_BASE_URL}/api/opportunities/my", {
+            const res = await fetch(`${API_BASE_URL}/api/opportunities/my`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

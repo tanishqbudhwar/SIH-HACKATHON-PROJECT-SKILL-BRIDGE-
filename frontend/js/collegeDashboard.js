@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 1. Fetch Stats
     async function fetchStats() {
         try {
-            const res = await authFetch("${API_BASE_URL}/api/college/stats");
+            const res = await authFetch(`${API_BASE_URL}/api/college/stats`);
             const data = await res.json();
             
             if (res.ok && data.stats) {
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // Also fetch recent applications for the dashboard
-            const appRes = await authFetch("${API_BASE_URL}/api/college/applications");
+            const appRes = await authFetch(`${API_BASE_URL}/api/college/applications`);
             const appData = await appRes.json();
             
             const tbody = document.getElementById("recentApplicationsList");
@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. Fetch Students
     async function fetchStudents() {
         try {
-            const res = await authFetch("${API_BASE_URL}/api/college/students");
+            const res = await authFetch(`${API_BASE_URL}/api/college/students`);
             const data = await res.json();
             const tbody = document.getElementById("studentsList");
             tbody.innerHTML = "";
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 3. Fetch Opportunities
     async function fetchOpportunities() {
         try {
-            const res = await authFetch("${API_BASE_URL}/api/opportunities");
+            const res = await authFetch(`${API_BASE_URL}/api/opportunities`);
             const data = await res.json();
             const container = document.getElementById("opportunitiesList");
             container.innerHTML = "";
@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 4. Fetch All Applications
     async function fetchApplications() {
         try {
-            const res = await authFetch("${API_BASE_URL}/api/college/applications");
+            const res = await authFetch(`${API_BASE_URL}/api/college/applications`);
             const data = await res.json();
             const tbody = document.getElementById("allApplicationsList");
             tbody.innerHTML = "";
@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let currentProfile = null;
     async function fetchProfile() {
         try {
-            const res = await authFetch("${API_BASE_URL}/api/college/profile");
+            const res = await authFetch(`${API_BASE_URL}/api/college/profile`);
             const data = await res.json();
             
             if (res.ok) {
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.disabled = true;
 
         try {
-            const res = await fetch("${API_BASE_URL}/api/college/profile", {
+            const res = await fetch(`${API_BASE_URL}/api/college/profile`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

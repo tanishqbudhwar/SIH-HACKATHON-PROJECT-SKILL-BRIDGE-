@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             container.innerHTML = `<div class="loading-state">Loading your programs...</div>`;
             
-            const res = await fetch("${API_BASE_URL}/api/programs/my", {
+            const res = await fetch(`${API_BASE_URL}/api/programs/my`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             try {
-                const res = await fetch("${API_BASE_URL}/api/programs", {
+                const res = await fetch(`${API_BASE_URL}/api/programs`, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",

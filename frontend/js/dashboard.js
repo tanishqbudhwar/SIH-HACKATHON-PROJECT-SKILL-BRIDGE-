@@ -64,12 +64,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     try {
         // Fetch Profile for standard user data (course, year, certificates)
-        const profileResponse = await fetch("${API_BASE_URL}/api/profile", {
+        const profileResponse = await fetch(`${API_BASE_URL}/api/profile`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
         // Fetch Assessment History for dynamic metrics
-        const historyResponse = await fetch("${API_BASE_URL}/api/assessment/history", {
+        const historyResponse = await fetch(`${API_BASE_URL}/api/assessment/history`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const opportunitiesContainer = document.getElementById("opportunitiesContainer");
         if (opportunitiesContainer) {
             try {
-                const oppResponse = await fetch("${API_BASE_URL}/api/opportunities", {
+                const oppResponse = await fetch(`${API_BASE_URL}/api/opportunities`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
                 
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                                 e.target.disabled = true;
 
                                 try {
-                                    const res = await fetch('${API_BASE_URL}/api/applications', {
+                                    const res = await fetch(`${API_BASE_URL}/api/applications`, {
                                         method: 'POST',
                                         headers: {
                                             'Content-Type': 'application/json',

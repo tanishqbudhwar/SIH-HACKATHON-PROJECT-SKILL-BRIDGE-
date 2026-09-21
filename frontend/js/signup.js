@@ -109,7 +109,7 @@ signupButton.addEventListener("click", async () => {
     try {
 
         const response = await fetch(
-            "${API_BASE_URL}/api/auth/signup",
+            `${API_BASE_URL}/api/auth/signup`,
             {
                 method: "POST",
 

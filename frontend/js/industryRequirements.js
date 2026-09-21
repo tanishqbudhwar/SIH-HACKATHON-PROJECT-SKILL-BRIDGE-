@@ -21,12 +21,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     try {
         // Fetch active opportunities for this industry
-        const oppsRes = await fetch("${API_BASE_URL}/api/opportunities/my", {
+        const oppsRes = await fetch(`${API_BASE_URL}/api/opportunities/my`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
         
         // Fetch all students
-        const studentsRes = await fetch("${API_BASE_URL}/api/profile/students", {
+        const studentsRes = await fetch(`${API_BASE_URL}/api/profile/students`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 

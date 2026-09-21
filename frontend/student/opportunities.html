@@ -314,7 +314,7 @@
                 const container = document.getElementById('opportunitiesContainer');
                 
                 // Fetch opportunities
-                const response = await fetch("${API_BASE_URL}/api/opportunities", {
+                const response = await fetch(`${API_BASE_URL}/api/opportunities`, {
                     headers: { "Authorization": `Bearer ${token}` }
                 });
                 
@@ -417,7 +417,7 @@
                 btnElement.disabled = true;
                 btnElement.textContent = "Applying...";
                 
-                const response = await fetch("${API_BASE_URL}/api/applications", {
+                const response = await fetch(`${API_BASE_URL}/api/applications`, {
                     method: "POST",
                     headers: { 
                         "Content-Type": "application/json",

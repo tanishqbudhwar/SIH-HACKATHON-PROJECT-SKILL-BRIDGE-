@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const notificationsList = document.getElementById("notificationsList");
 
     try {
-        const response = await fetch("${API_BASE_URL}/api/applications/industry", {
+        const response = await fetch(`${API_BASE_URL}/api/applications/industry`, {
             headers: { "Authorization": `Bearer ${token}` }
         });
 

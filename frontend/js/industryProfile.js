@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             profileView.style.display = "none";
             profileEdit.style.display = "none";
 
-            const res = await fetch("${API_BASE_URL}/api/industry-profile", {
+            const res = await fetch(`${API_BASE_URL}/api/industry-profile`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
 
@@ -192,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         saveProfileBtn.disabled = true;
 
         try {
-            const res = await fetch("${API_BASE_URL}/api/industry-profile", {
+            const res = await fetch(`${API_BASE_URL}/api/industry-profile`, {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/json",
